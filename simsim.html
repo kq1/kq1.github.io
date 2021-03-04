@@ -1,0 +1,78 @@
+<html>
+<style>
+body{
+  line-height: 50%
+}
+</style>
+<script>
+function pickr(a){
+  return a[Math.floor(Math.random()*a.length)];
+}
+</script>
+<script>
+
+scorez=["0","1","2","3","4","5","6","Maxxed"];
+
+alphabet="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+phonez=["A:"+Math.floor(Math.random()*100),"B:"+Math.floor(Math.random()*100),"C:"+Math.floor(Math.random()*100),"D:"+Math.floor(Math.random()*100)];
+
+namez=["Angela","Barbara","Chelsea","Desiree","Elena","Francina","Gina","Hera","Idra","Jasmine","Katrina","Lara"];
+
+folk=["Name","Musicz","Gadget","Social","Brains","GodGod"];
+
+player1=[prompt("What is your name?",pickr(namez)),0,0,0,0,0];
+
+window.onload=function(){
+  document.getElementsByTagName('p')[0].innerHTML=folk[0]+": "+player1[0];
+
+  for(a=1;a<6;a++) document.getElementsByTagName('p')[a].innerHTML=folk[a]+": "+scorez[player1[a]];
+
+  document.getElementsByTagName('p')[6].innerHTML="Phone Numbers:<br><br>"+phonez;  
+};
+
+function cl(ain){
+  if(ain != 0) player1[ain]+=qm(ain);
+  if(player1[ain]>8) player1[ain]=7;
+
+  document.getElementsByTagName('p')[0].innerHTML=folk[0]+": "+player1[0];
+
+  for(a=1;a<6;a++) document.getElementsByTagName('p')[a].innerHTML=folk[a]+": "+scorez[player1[a]];
+
+  if((player1[1]===7)&&(player1[2]===7)&&(player1[3]===7)&&(player1[4]===7)) document.body.innerHTML="YOU HAVE WON."+(player1[5]===0?" Devilish Play!":" Non-Devilish Play");
+}
+
+function qm(ain){
+  pointz=0;
+  notez=["a","b","c","d","e","f","g"];
+  wordz=["first","second","third","fourth","fifth","sixth","seventh","eighth"];
+  rnum1 = Math.random();
+  rnum2 = Math.random();
+  rnum3 = Math.random();
+  rnum4 = Math.random();
+
+  if((ain===1)&&(prompt("What is a "+wordz[Math.floor(rnum1*7+1)]+" above "+notez[Math.floor(rnum2*7)]+"?")===notez[(Math.floor(rnum1*7+1)+Math.floor(rnum2*7))%7])) pointz++;
+
+  if((ain===2)&&(prompt("What is a "+(Math.floor(rnum1*16)).toString(10)+" in binary?")===(Math.floor(rnum1*16)).toString(2))) pointz++;
+
+  if((ain===3)&&(prompt("Speeddial "+alphabet.charAt(Math.floor(rnum1*4))+" is what phone number?")===phonez[Math.floor(rnum1*4)].substring(2,10))) pointz++;
+
+  if((ain===4)&&(prompt("What is "+(Math.floor(rnum1*100)).toString(10)+" plus "+(Math.floor(rnum2*100)).toString(10)+"?")===(Math.floor(rnum1*100)+Math.floor(rnum2*100)).toString())) pointz++;
+
+  if((ain===5)&&(prompt("Who/What do believe is the Creator?") === "God")) pointz++;
+
+  return pointz;
+}
+
+</script>
+<body>
+<p>Display Name!</p>
+<p onclick="cl(1)">Musicz!</p>
+<p onclick="cl(2)">Stream!</p>
+<p onclick="cl(3)">Social!</p>
+<p onclick="cl(4)">Brains!</p>
+<p onclick="cl(5)">GodGod!</p>
+
+<p>Training</p>
+</body>
+</html>
