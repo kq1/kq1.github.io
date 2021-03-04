@@ -1,0 +1,14 @@
+<html>
+<script>
+scorez=0;
+for(a=0;a<10;a++){
+  num1=Math.floor(Math.random()*100);
+  num2=Math.floor(Math.random()*100);
+  anz=num1+num2;
+  if(parseInt(prompt("What is "+num1+" + "+num2+"?","0"))===anz) scorez++;
+}
+alert("Out of 10 you had "+scorez+" right!");
+</script>
+<body>
+</body>
+</html>
