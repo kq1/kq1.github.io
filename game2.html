@@ -1,0 +1,36 @@
+<html>
+<script>
+// Game 2: Typing: Letter Replacement.
+
+wordzText="rap,cap,lap,tap,map,nap,yap,gap,sap,zap";
+
+wordz = wordzText.split(',');
+
+scorez=0;
+// Initial score set to zero.
+
+for(a=0;a<10;a++){
+// Loop 10 times and play for 10 words.
+
+  playword=wordz[Math.floor(Math.random()*wordz.length)];
+  // pick a random word from wordz.
+  
+  if(prompt("What is "+playword+" with all vowels replaced by a \'z\'?","")===playword.replace(/[aeiou]/gi, "z")) scorez++;
+  
+  //  Equivalent Code:
+
+  //  getUserAnswer = prompt("What is "+playword+" with all vowels replaced by a \'z\'?","");
+      // Store user's answer in getUserAnswer.
+
+  //  if(getUserAnswer === playword.replace(/[aeiou]/gi,"z")) scorez++;
+      // If the User's Answer is equal to the right answer increment the score.
+
+}  // End For Loop
+
+alert("Out of 10 you had "+scorez+" right!");
+// Output score.
+
+</script>
+<body>
+</body>
+</html>
