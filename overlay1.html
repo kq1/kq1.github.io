@@ -1,0 +1,30 @@
+<html>
+<style>
+body {
+  font-size: 20pt;
+  color: white;
+}
+
+h1{
+  font-size: 32pt;
+}
+</style>
+<script>
+
+roomz=[];
+roomz.push();
+
+window.onload=function(){
+  document.getElementById('titleout').style.visibility="hidden";
+  setInterval(function(){
+    document.getElementById('titleout').style.visibility="visible";
+    setTimeout(function(){
+      document.getElementById('titleout').style.visibility="hidden";
+    },5000)
+  },30000);  
+}
+</script>
+<body bgcolor="black">
+<center><h1 id="titleout">PanelDev <font color="red">LIVE</font><br>JavaScript RPG Coding</h1></center>
+</body>
+</html>
