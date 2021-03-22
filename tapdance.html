@@ -1,0 +1,59 @@
+<html>
+<script>
+
+songs=["764201234076420123407642012344567","0044554332211044332214433221"];
+
+function stopIt(){
+  for(a=0;a<document.getElementsByTagName('audio').length;a++){
+    if(!document.getElementsByTagName('audio')[a].paused) document.getElementsByTagName('audio')[a].pause();
+    document.getElementsByTagName('audio')[a].currentTime=0;
+  }
+}
+
+nownote=0;
+scorez=0;
+
+function inNote(ina){
+  if(ina === parseInt(songs[1].substring(nownote,nownote+1))) scorez++;
+  document.getElementById('scoreout').innerHTML = "Your score is "+scorez;
+  nownote++;
+}
+</script>
+<body>
+<p id="scoreout"></p>
+<p><span onclick="inNote(0); stopIt(); document.getElementsByTagName('audio')[0].play()">[C3]</span> <span onclick="inNote(1); stopIt(); document.getElementsByTagName('audio')[1].play()">[D3]</span> <span onclick="inNote(2); stopIt(); document.getElementsByTagName('audio')[2].play()">[E3]</span> <span onclick="inNote(3); stopIt(); document.getElementsByTagName('audio')[3].play()">[F3]</span> <span onclick="inNote(4); stopIt(); document.getElementsByTagName('audio')[4].play()">[G3]</span> <span onclick="inNote(5); stopIt(); document.getElementsByTagName('audio')[5].play()">[A3]</span> <span onclick="inNote(6); stopIt(); document.getElementsByTagName('audio')[6].play()">[B3]</span> <span onclick="inNote(7); stopIt(); document.getElementsByTagName('audio')[7].play()">[C3]</span></p>
+
+    <audio
+        controls
+        src="c3.m4a">
+    </audio>
+    <audio
+        controls
+        src="d3.m4a">
+    </audio>
+    <audio
+        controls
+        src="e3.m4a">
+    </audio>
+    <audio
+        controls
+        src="f3.m4a">
+    </audio>
+    <audio
+        controls
+        src="g3.m4a">
+    </audio>
+    <audio
+        controls
+        src="a3.m4a">
+    </audio>
+    <audio
+        controls
+        src="b3.m4a">
+    </audio>
+    <audio
+        controls
+        src="c4.m4a">
+    </audio>
+</body>
+</html>
