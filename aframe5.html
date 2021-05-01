@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+<script>
+gg = 10;
+hh = 51;
+rr = 50;
+
+k = 400;
+
+xyzr=[];
+cha=0.1;
+
+for(a=0;a<k;a+=0.5){
+  xyzr.push([-k+Math.random()*cha-cha/2,(hh-1)*(1-a/k)+Math.random()*cha-cha/2,-k/2+a+Math.random()*cha-cha/2]);
+}
+for(a=0;a<k;a+=0.5){
+  xyzr.push([-k+a+Math.random()*cha-cha/2,(hh-1)*Math.log(a+1)/Math.log(k+1)+Math.random()*cha-cha/2,k/2+Math.random()*cha-cha/2]);
+}
+for(a=0;a<k;a+=0.5){
+  xyzr.push([0+Math.random()*cha-cha/2,(hh-1)/2+((hh-1)/2)*(Math.cos(2*3.14159*a/(k)))+Math.random()*cha-cha/2,k/2-a+Math.random()*cha-cha/2]);
+}
+for(a=0;a<k;a+=0.5){
+  xyzr.push([0-a+Math.random()*cha-cha/2,(hh-1)*((2*a/k-1)**2)+Math.random()*cha-cha/2,-k/2+Math.random()*cha-cha/2]);
+}
+xyzr.push(xyzr[0]);
+
+timelist = [];
+for(aa=0;aa<xyzr.length-1;aa++){
+vv = Math.sqrt(Math.abs(hh - xyzr[aa][1])*gg*2);
+dd = Math.sqrt((xyzr[aa+1][0]-xyzr[aa][0])**2+(xyzr[aa+1][1]-xyzr[aa][1])**2+(xyzr[aa+1][2]-xyzr[aa][2])**2);
+timelist.push(dd/vv*rr);
+}
+
+tccc=0;
+lccc=0;
+
+ccc=0;
+
+jrk=0.05;
+
+window.onload=function(){
+  for(a=0;a+1<xyzr.length;a++){
+    xr = xyzr[a][0];
+    yr = xyzr[a][1];
+    zr = xyzr[a][2];
+    idnow = 'boxbox'+a.toString();
+    document.getElementById(idnow).setAttribute('position', {x: xr, y: yr+1, z: zr});
+  }
+  setInterval(function(){
+    if(timelist[ccc] < tccc - lccc){
+      document.getElementById('camcam').setAttribute('position', {x: xyzr[ccc][0]+Math.random()*jrk-jrk/2, y: (xyzr[ccc][1])+Math.random()*jrk-jrk/2, z: xyzr[ccc][2]+Math.random()*jrk-jrk/2});
+      ccc++;
+      if(ccc + 2 > xyzr.length){
+        ccc=0;
+        tccc=0;
+        lccc=0;
+      }
+      lccc=tccc;
+    }
+    tccc++;
+  },1000/rr);
+}
+</script> 
+ </head>
+  <body>
+    <a-scene>
+      <a-camera id="camcam" position="0 1 0"></a-camera>
+<script>
+htmlout="";
+for(a=0;a<k*8;a++){
+  htmlout+="<a-box id=\"boxbox"+a.toString()+"\" position=\"-1 0.5 -3\" material=\"side: double; color: #4CC3D9; transparent: true; opacity: 0.25\"></a-box>";
+}
+document.write(htmlout);
+</script>
+<script>
+htmlout="";
+for(a=0;a<k/2;a++){
+  htmlout+="<a-box id=\"boxbox"+a.toString()+"\" position=\""+(Math.random()*k-k)+" "+(Math.random()*hh)+" "+(Math.random()*k - k/2)+"\" material=\"side: double; color: #808080; transparent: true; opacity: 0.25\"></a-box>";
+}
+document.write(htmlout);
+</script>
+      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-entity position="0 0 0"  id="texx" text="anchor: center; width: 500; value: A New Ride: Conveyor Function."></a-entity>
+      <a-entity position="0 0 -100"  id="texx1" text="anchor: center; width: 500; value: Line, Log, Cos, Quad."></a-entity>
+      <a-entity position="0 0 100"  id="texx2" text="anchor: center; width: 500; value: A New Ride: Conveyor Function."></a-entity>
+      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+  </body>
+</html>
