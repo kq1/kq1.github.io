@@ -1,0 +1,135 @@
+<html>
+<style>
+a {
+  color: #b0b0b0;
+}
+</style>
+<script>
+roomn=[];
+roomc=[];
+rooma=[];
+roomg=[];
+
+function addroom(inname,inhtml,inauto,ingo){
+  roomn.push(inname);
+  roomc.push(inhtml);
+  rooma.push(inauto.split(";"));
+  roomg.push(ingo.split(","));
+}
+
+addroom("start","Welcome to the Start Screen","muadd~visited rooms,1;yetog","bed");
+addroom("bed","What are you doing in bed?!?  You are an adventurer!!  Get up and go adventure some!!","muadd~visited rooms,1","morning");
+addroom("morning","30 Minutes Later: Good Morning!!  Now that you have brushed your teeth and gotten dressed, feel free to wander around!!  Oh, by the way, you are HUNGRY!!","muadd~visited rooms,1","bed-2,kitchen,living room,breakfast room,secret passage behind the fireplace");
+addroom("bed-2","No going back to bed, Player! :)","muadd~visited rooms,1","kitchen,living room,breakfast room,secret passage behind the fireplace");
+addroom("kitchen","Cooking food for your non-existent girlfriend again?","muadd~visited rooms,1","bed-2,living room,breakfast room,secret passage behind the fireplace");
+addroom("living room","Your couches are only mediocre at best.  There is enough space here to do a backflip.  You practice and gain the Backflip Ability!!","muadd~visited rooms,1;muadd~backflip ability,able!","bed-2,kitchen,breakfast room,secret passage behind the fireplace");
+addroom("breakfast room","Rise and ... starve?  There's no food here!!","muadd~visited rooms,1","bed-2,kitchen,living room,secret passage behind the fireplace");
+addroom("secret passage behind the fireplace","There probably isn't a lot of food in a secret passage!!","muadd~visited rooms,1","bed-2,kitchen,living room,breakfast room,a dark tunnel");
+addroom("a dark tunnel","You find yourself in a dark tunnel!!  Doh, a door closes and you cannot seem to get back to the living room.","muadd~visited rooms,1","a dark tunnel-2");
+addroom("a dark tunnel-2","You still find yourself in a dark tunnel!!","muadd~visited rooms,1","a dark tunnel,a dark tunnel-3");
+addroom("a dark tunnel-3","You still find yourself in a dark tunnel!!","muadd~visited rooms,1","a dark tunnel-2,a dark tunnel-4");
+addroom("a dark tunnel-4","You still find yourself in a dark tunnel!!","muadd~visited rooms,1","a dark tunnel-3,a dark tunnel-5");
+addroom("a dark tunnel-5","You still find yourself in a dark tunnel!!","muadd~visited rooms,1","a dark tunnel-4,a hatch");
+addroom("a hatch","You feel a hatch on your right!!","muadd~visited rooms,1","a dark tunnel-5,daylight");
+addroom("daylight","You open the hatch and see daylight!!","muadd~visited rooms,1","dragon");
+addroom("dragon","You walk into the light and suddenly a dragon flies towards you!! You are stunned and stand like stone as the dragon picks you up with its talons and ... To Be Continued!!","muadd~visited rooms,1","dragon");
+
+</script>
+<script>
+yesbody=false;
+
+statn=[];
+statv=[];
+
+function addstat(inn,inv){
+  ind = statn.indexOf(inn);
+  if(ind+1>0){
+    if(typeof(inv) === "string"){
+      statv[ind] = inv;
+    }
+
+    if(typeof(inv) === "number"){
+      if(inv <= -1000000){
+        statv[ind] = Math.abs(inv)-1000000;
+      }
+      if(inv > -1000000){
+        statv[ind] += inv;
+      }
+    }
+  }
+  else{
+    statn.push(inn);
+    statv.push(inv);
+  }
+  if(yesbody) document.getElementById('droomi').innerHTML += "Your "+inn+" stat has been updated!<br>";
+}
+
+addstat("name",prompt("Your Name Please?","Me The Player").replace(/[^a-zA-Z0-9\ ]/gi,""));
+addstat("backflip ability","none");
+addstat("viola arpeggio ability","none");
+addstat("math tutor ability",70);
+addstat("max math tutor ability",100);
+
+
+function dispstats(){
+  htmlout = "";
+  for(a=0;a<statn.length;a++){
+    htmlout += statn[a] + ": "+statv[a]+"<br>";
+  }
+  document.getElementById('droomi').innerHTML = htmlout;
+}
+
+function disparmor(){
+  htmlout = "Gear Soon!!";
+  document.getElementById('droomi').innerHTML = htmlout;
+}
+function dispitems(){
+  htmlout = "Backpack Soon!!";
+  document.getElementById('droomi').innerHTML = htmlout;
+}
+</script>
+<script>
+function showroom(inroom){
+  document.getElementById("droomi").innerHTML = "";
+  rindex = roomn.indexOf(inroom);
+  if(rindex + 1 >0){
+    document.getElementById("droomn").innerHTML = roomn[rindex].replace(/\-.*/gi,"").toUpperCase();
+    document.getElementById("droomc").innerHTML = roomc[rindex];
+    document.getElementById("droomg").innerHTML = "";
+    for(a=0;a<roomg[rindex].length;a++){
+      document.getElementById("droomg").innerHTML += "<a href=\"javascript:showroom(\'"+roomg[rindex][a]+"\')\">"+roomg[rindex][a].replace(/\-.*/gi,"").toUpperCase()+"</a><br>";
+    }
+  }
+  if(rooma[rindex].length>0){
+    for(c=0;c<rooma[rindex].length;c++){
+      nowcomm = rooma[rindex][c];
+      switch(nowcomm.substring(0,5)){
+        case "muadd":
+          proparr=nowcomm.replace(/.*\~/gi,"").split(",");
+          addstat(proparr[0],(proparr[1].replace(/[^0-9\.]/gi,"")===proparr[1]?parseFloat(proparr[1]):proparr[1]));
+        break;
+        case "yetog":
+          yesbody=true;
+        break;
+      }
+    }
+  }
+}
+
+
+</script>
+<script>
+window.onload=function(){
+  showroom("start");
+}
+</script>
+<body bgcolor="black">
+<div id="droomn" style="font-size: 30pt; font-family: Apple Chancery; color: red"></div><hr><hr><hr>
+<div id="droomc" style="font-size: 18pt; font-family: Courier; color: white"></div><hr><hr><hr>
+<div style="font-size: 18pt; color: #808080">Choices:</div>
+<div id="droomg" style="font-size: 18pt; font-family: Apple Chancery; color: #b0b0b0"></div><hr><hr><hr>
+<div id="droomi" style="font-size: 18pt; font-family: Courier; color: white">Information Shows Up Here!</div>
+<div style="font-size: 18pt; color: #808080">Menu:</div>
+<div style="font-size: 18pt; color: #b0b0b0"><a href="javascript:dispstats()">Stats</a> <a href="javascript:disparmor()">Gear</a> <a href="javascript:dispitems()">Items</a></div>
+</body>
+</html>
