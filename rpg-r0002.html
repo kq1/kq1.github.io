@@ -1,0 +1,172 @@
+<html>
+<style>
+a {
+  color: #b0b0b0;
+}
+</style>
+<script>
+roomn=[];
+roomc=[];
+rooma=[];
+roomg=[];
+
+function addroom(inname,inhtml,inauto,ingo){
+  roomn.push(inname);
+  roomc.push(inhtml);
+  rooma.push(inauto.split(";"));
+  roomg.push(ingo.split(","));
+}
+
+addroom("start","Welcome to the Start Screen","muadd~visited rooms,1;yetog","dragon");
+addroom("dragon","The dragon drops you off at an oasis in the middle of a desert and the dragon promptly flies off.  Several humans see you and give you some fruit fresh picked from surrounding trees.","muadd~visited rooms,1;bptio~,a banana+a red apple+a green orange","hungry");
+addroom("hungry","With all this food thrown at you, you remember you were HUNGRY!!  There are a few choices of fruit to choose from!!","muadd~visited rooms,1","eat a banana,eat a red apple,eat a green orange,go wander around a bit");
+addroom("eat a banana","You eat a banana if you have one!!  Yummy!!","muadd~visited rooms,1;bptio~a banana,","eat a banana,eat a red apple,eat a green orange,go wander around a bit");
+addroom("eat a red apple","You eat a red apple if you have one!!  Yummy!!","muadd~visited rooms,1;bptio~a red apple,","eat a banana,eat a red apple,eat a green orange,go wander around a bit");
+addroom("eat a green orange","You eat a green orange if you have one!!  Yummy!!","muadd~visited rooms,1;bptio~a green orange,","eat a banana,eat a red apple,eat a green orange,go wander around a bit");
+addroom("go wander around a bit","You wander around a bit!!","muadd~visited rooms,1","eating fruits,pick a banana,pick a red apple,pick a green orange");
+addroom("pick a banana","You pick a banana!!","muadd~visited rooms,1;bptio~,a banana","pick a banana,pick a red apple,pick a green orange,go wander around a bit");
+addroom("pick a red apple","You pick a red apple!!","muadd~visited rooms,1;bptio~,a red apple","pick a banana,pick a red apple,pick a green orange,go wander around a bit");
+addroom("pick a green orange","You pick a green orange!!","muadd~visited rooms,1;bptio~,a green orange","pick a banana,pick a red apple,pick a green orange,go wander around a bit");
+addroom("eating fruits","So you are eating fruits again!!  There are a few choices of fruit to choose from!!","muadd~visited rooms,1","eat a banana,eat a red apple,eat a green orange,go wander around a bit,talk to locals");
+addroom("talk to locals","You chat up some locals!!","muadd~visited rooms,1","eating fruits,go wander around a bit,talk to a local in red,talk to a local in blue,talk to a tall local,talk to a kid local,sleep");
+addroom("talk to a local in red","In chatting, you find out that the Emperor likes bananas.","muadd~visited rooms,1","talk to locals,talk to a local in red,talk to a local in blue,talk to a tall local,talk to a kid local");
+addroom("talk to a local in blue","In chatting, you find out that the Emperor hates the color green.","muadd~visited rooms,1","talk to locals,talk to a local in red,talk to a local in blue,talk to a tall local,talk to a kid local");
+addroom("talk to a tall local","You have a backflip competition.  The local loses and gives you a shimmering broach.","muadd~visited rooms,1;muadd~backflip ability,able!;bptio~a shimmering broach,;bptio~,a shimmering broach","talk to locals,talk to a local in red,talk to a local in blue,talk to a tall local,talk to a kid local");
+addroom("talk to a kid local","The kid tries to trade a broach for a key.","muadd~visited rooms,1;bptio~a shimmering broach+an ancient key,an ancient key;bptio~a shimmering broach,an ancient key,","talk to locals,talk to a local in red,talk to a local in blue,talk to a tall local,talk to a kid local");
+addroom("sleep","You feel sleepy and ... (To Be Continued)","muadd~visited rooms,1","");
+
+
+
+</script>
+<script>
+yesbody=false;
+
+statn=[];
+statv=[];
+
+function addstat(inn,inv){
+  ind = statn.indexOf(inn);
+  if(ind+1>0){
+    if(typeof(inv) === "string"){
+      statv[ind] = inv;
+    }
+
+    if(typeof(inv) === "number"){
+      if(inv <= -1000000){
+        statv[ind] = Math.abs(inv)-1000000;
+      }
+      if(inv > -1000000){
+        statv[ind] += inv;
+      }
+    }
+  }
+  else{
+    statn.push(inn);
+    statv.push(inv);
+  }
+  if(yesbody) document.getElementById('droomi').innerHTML += "Your "+inn+" stat has been updated!<br>";
+}
+
+addstat("name",prompt("Your Name Please?","Me The Player").replace(/[^a-zA-Z0-9\ ]/gi,""));
+addstat("backflip ability","none");
+addstat("viola arpeggio ability","none");
+addstat("math tutor ability",70);
+addstat("max math tutor ability",100);
+
+
+function dispstats(){
+  htmlout = "";
+  for(a=0;a<statn.length;a++){
+    htmlout += statn[a] + ": "+statv[a]+"<br>";
+  }
+  document.getElementById('droomi').innerHTML = htmlout;
+}
+
+function disparmor(){
+  htmlout = "Gear Soon!!";
+  document.getElementById('droomi').innerHTML = htmlout;
+}
+
+</script>
+<script>
+
+backpack=["a banana"];
+
+function packtrade(ingiveit,ingetit){
+  gotall = true;
+  if(ingiveit.length > 0){
+    temppack = [];
+    temppack = JSON.parse(JSON.stringify(backpack));
+    for(f=0;f<ingiveit.length;f++){
+      temppos = temppack.indexOf(ingiveit[f]);
+      if(temppos < 0){
+        gotall = false;
+      }
+      else{
+        temppack.splice(temppos,1);
+      }
+    }
+  }
+  if((gotall)||(ingiveit.toString()==="")) {
+    backpack = JSON.parse(JSON.stringify(temppack));
+    if(ingetit.toString() !== "") {
+      backpack = backpack.concat(ingetit);
+      document.getElementById('droomi').innerHTML += "You have gained:<br>"+ingetit.toString().replace(/\[\]/gi,"").replace(/\,/gi,"<br>")
+    }
+  }
+}
+
+function dispitems(){
+  htmlout = "Your Items:<br>"+backpack.toString().replace(/\[\]/gi,"").replace(/\,/gi,"<br>");
+  document.getElementById('droomi').innerHTML = htmlout;
+}
+</script>
+<script>
+function showroom(inroom){
+  document.getElementById("droomi").innerHTML = "";
+  rindex = roomn.indexOf(inroom);
+  if(rindex + 1 >0){
+    document.getElementById("droomn").innerHTML = roomn[rindex].replace(/\-.*/gi,"").toUpperCase();
+    document.getElementById("droomc").innerHTML = roomc[rindex];
+    document.getElementById("droomg").innerHTML = "";
+    for(a=0;a<roomg[rindex].length;a++){
+      document.getElementById("droomg").innerHTML += "<a href=\"javascript:showroom(\'"+roomg[rindex][a]+"\')\"><span style=\'color: red\'>"+roomg[rindex][a].replace(/\-.*/gi,"").toUpperCase()+"<span></a><br>";
+    }
+  }
+  if(rooma[rindex].length>0){
+    for(c=0;c<rooma[rindex].length;c++){
+      nowcomm = rooma[rindex][c];
+      switch(nowcomm.substring(0,5)){
+        case "muadd":
+          proparr=nowcomm.replace(/.*\~/gi,"").split(",");
+          addstat(proparr[0],(proparr[1].replace(/[^0-9\.]/gi,"")===proparr[1]?parseFloat(proparr[1]):proparr[1]));
+        break;
+        case "yetog":
+          yesbody=true;
+        break;
+        case "bptio":
+          proparr=nowcomm.replace(/.*\~/gi,"").split(",");
+          packtrade(proparr[0].split("+"),proparr[1].split("+"));
+        break;
+      }
+    }
+  }
+}
+
+
+</script>
+<script>
+window.onload=function(){
+  showroom("start");
+}
+</script>
+<body bgcolor="black">
+<div id="droomn" style="font-size: 30pt; font-family: Apple Chancery; color: red"></div><hr><hr><hr>
+<div id="droomc" style="font-size: 18pt; font-family: Courier; color: white"></div><hr><hr><hr>
+<div style="font-size: 18pt; color: #808080">Choices:</div>
+<div id="droomg" style="font-size: 18pt; font-family: Apple Chancery; color: #b0b0b0"></div><hr><hr><hr>
+<div id="droomi" style="font-size: 18pt; font-family: Courier; color: white">Information Shows Up Here!</div>
+<div style="font-size: 18pt; color: #808080">Menu:</div>
+<div style="font-size: 18pt; color: #b0b0b0"><a href="javascript:dispstats()"><span style="color: white">Stats</span></a> <a href="javascript:disparmor()"><span style="color: white">Gear</span></a> <a href="javascript:dispitems()"><span style="color: white">Items</span></a></div>
+</body>
+</html>
