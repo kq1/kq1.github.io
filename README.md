@@ -1,5 +1,4 @@
 # kq1.github.io
 
 WELCOME
-
-THIS REPOSITORY CONTAINS THE MAIN CODE EXAMPLES FOR A BOOK I AM WRITING
+Random Stuff I've completed.
