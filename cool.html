@@ -1,0 +1,71 @@
+<html>
+<script>
+// HELLO: "function" functions and classes here
+
+
+// function 1: (x^2)(y^2).  Will add restrictions x between -100 and 100 (2dp), y between -100 and 100 (2dp)
+
+func1 = new Object();
+func1.func = "(x**2)*(y**2)";
+func1.vlet = "xy";
+func1.subit = function(invalues){
+  tfunc = this.func;
+  for(a=0;a<this.vlet.length;a++){
+    re = new RegExp(this.vlet.substring(a,a+1),'gi');
+    tfunc2 = tfunc.replace(re,"("+invalues[a]+")");
+    tfunc = tfunc2;
+  }
+  return(eval(tfunc));
+}
+</script>
+
+<script>
+// HELLO: team data stored here
+
+tnames = ["relue321","95141.3","oitar_dlog","htamhtam"];
+
+tdata = [0,0,0,0];
+
+
+
+
+</script>
+
+<script>
+
+
+function gogo(){
+  nowname = prompt("Your secret team name for accounting purposes","secret");
+  if(tnames.indexOf(nowname) + 1 > 0){
+  doit = prompt("action with attributes: \"(1, 3)\" or \"(1, 3) = 6\"").replace(/[^\(\)\,\.0-9\ \=]/gi,"");
+  arrdo = [];
+  arrdo = JSON.parse(JSON.stringify(doit.split("=")));
+  if(arrdo.length === 2) {
+    if(func1.subit(arrdo[0].replace(/[\(\)]/gi,"").split(",")) === parseFloat(arrdo[1])){
+      if(typeof(func1.subit(arrdo[0].replace(/[\(\)]/gi,"").split(","))) !== "number"){
+        alert("Error of some sort");
+      }
+      else{
+        alert("Your guess is correct!  No penalty for score.");
+      }
+
+    }
+    else{
+       alert("Your guess seems to be wrong.  You increase 2 points.");
+       tdata[tnames.indexOf(nowname)]+=2;
+    }
+  }
+  else{
+    alert("You gain a point and your answer is: "+func1.subit(arrdo[0].replace(/[\(\)]/gi,"").split(",")));
+       tdata[tnames.indexOf(nowname)]++;
+
+  }
+  }
+  document.body.innerHTML="Data:<br>Users: "+tnames+"<br>Points: "+tdata;
+}
+
+</script>
+<body onclick="gogo()">
+Click any text to start over!
+</body>
+</html>
