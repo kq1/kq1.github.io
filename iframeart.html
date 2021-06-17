@@ -4,6 +4,11 @@ ctx="";
 drawn=0;
 window.onload=function(){
   window.frames[0].document.body.innerHTML+="<center><canvas width=\"400px\" height=\"400px\" id=\"cancan\" style=\"border: 1px red solid\"></canvas><br><p id=\"inout\"></p></center>";
+  
+  window.frames[0].ontouchstart=function(){
+    redraw();
+  };
+  
   window.frames[0].onclick=function(){
     redraw();
   };
