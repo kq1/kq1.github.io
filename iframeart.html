@@ -5,7 +5,7 @@ drawn=0;
 window.onload=function(){
   window.frames[0].document.body.innerHTML+="<center><canvas width=\"400px\" height=\"400px\" id=\"cancan\" style=\"border: 1px red solid\"></canvas><br><p id=\"inout\"></p></center>";
   
-  window.frames[0].ontouchstart=function(){
+  window.frames[0].ontouchdown=function(){
     redraw();
   };
   
@@ -24,7 +24,7 @@ window.onload=function(){
 function redraw(){
   drawn++;
   ctx.beginPath();
-  for(a=0;a<100;a++){
+  for(a=0;a<10;a++){
     ctx.moveTo(Math.floor(800*Math.random()-200),Math.floor(800*Math.random()-200));
     ctx.lineTo(Math.floor(800*Math.random()-200),Math.floor(800*Math.random()-200));
     ctx.closePath();
