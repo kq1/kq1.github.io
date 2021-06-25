@@ -1,0 +1,112 @@
+<html>
+<style>
+div {
+  font-family: Comic Sans MS;
+}
+</style>
+<script>
+function iload(ina){
+  window.frames[0].document.open();
+  window.frames[0].document.write(document.getElementsByTagName("textarea")[ina].value);
+  window.frames[0].document.close();
+}
+</script>
+<body>
+<div style="position: fixed; right: 0px; top: 0px">
+Click the example textareas on the left to render below.<br>
+<iframe width="400px" height="600px"></iframe>
+</div>
+<div style="max-width: 500px; word-wrap: break-word;">This barebones HTML displays nothing:</div><br>
+<textarea rows="7" cols="80" onclick="iload(0)">
+<html>
+<script>
+</script>
+<body>
+</body>
+</html>
+</textarea>
+<hr width="600px" align="left"><div style="max-width: 500px; word-wrap: break-word;">This HTML displays some text in the document's Body Tag:</div><br>
+<textarea rows="9" cols="80" onclick="iload(1)">
+<html>
+<script>
+</script>
+<body>
+This is some text.  There is no emergency.  This is only some text.  Thank You For Reading This Public Service Announcement.
+</body>
+</html>
+</textarea>
+<hr width="600px" align="left"><div style="max-width: 500px; word-wrap: break-word;">This HTML contains a Script Tag with JavaScript.  In particular it uses the "alert" function.  In general, functions are called with this syntax (syntax just means written-out pattern/grammar): "functionName(parameters);" where "parameters" just indicates the input(s).  Remember to use the semicolon at the end!!  This example displays two annoying popups.</div><br>
+<textarea rows="9" cols="80" onclick="iload(2)">
+<html>
+<script>
+alert("one plus one is ...");
+alert(1 + 1);
+</script>
+<body>
+</body>
+</html>
+</textarea>
+<hr width="600px" align="left"><div style="max-width: 500px; word-wrap: break-word;">This HTML uses the "alert" function also.  It's not a very useful function in general, but it's simple so we can use it here at the start.</div><br>
+<textarea rows="9" cols="80" onclick="iload(3)">
+<html>
+<script>
+alert("What "+"do "+"you "+"think "+"happens "+"here?");
+alert(1 + 2 + 3 + 4 + 5);
+alert("1" + "2" + "3" + "4" + "5");
+alert("1 + 2 + 3 + 4 + 5");
+</script>
+<body>
+</body>
+</html>
+</textarea>
+<hr width="600px" align="left"><div style="max-width: 500px; word-wrap: break-word;">This HTML uses the "prompt" function.  The "prompt" function can use up to two parameters: the first being the query and the second being the placeholder answer.  Then we have functions of functions!!  We take the user's response from the second usage of the "prompt" function and echo it by using the response in an instance of the "alert" function.</div><br>
+<textarea rows="9" cols="80" onclick="iload(4)">
+<html>
+<script>
+prompt("Are you sure?","yes");
+alert("Your response to the second prompt was "+prompt("Are you REALLY sure?","Hmm.  Maybe?")+".");
+
+</script>
+<body>
+</body>
+</html>
+</textarea>
+<hr width="600px" align="left"><div style="max-width: 500px; word-wrap: break-word;">"In-line" means we are including the JavaScript within a Non-Script Tag.  This HTML uses in-line JavaScript to change the CSS attributes of the Body Tag:</div><br>
+<textarea rows="9" cols="80" onclick="iload(5)">
+<html>
+<script>
+</script>
+<body>
+We're changing the Body Tag's CSS here (click brackets):
+[<span onclick="document.body.style.color='red'">text color</span>],
+[<span onclick="document.body.style.background='purple'">bg color</span>],
+[<span onclick="document.body.style.border='5px green solid'">border</span>],
+[<span onclick="document.body.style.fontFamily='monospace'">font</span>],
+[<span onclick="document.body.style.fontSize='20pt'">font size</span>].
+</body>
+</html>
+</textarea>
+<hr width="600px" align="left"><div style="max-width: 500px; word-wrap: break-word;">This HTML uses Script tags to do what the last example did.  Notice: the code in the Script tag runs BEFORE the document loads.  Because of this, we need to wait for the window to load before trying to set the "onclick" event handlers for each span.</div><br>
+<textarea rows="9" cols="80" onclick="iload(6)">
+<html>
+<script>
+window.onload=function(){
+ document.getElementById("span1").onclick=function(){document.body.style.color='red'};
+ document.getElementById("span2").onclick=function(){document.body.style.background='purple'};
+ document.getElementById("span3").onclick=function(){document.body.style.border='5px green solid'};
+ document.getElementById("span4").onclick=function(){document.body.style.fontFamily='monospace'};
+ document.getElementById("span5").onclick=function(){document.body.style.fontSize='20pt'};
+}
+</script>
+<body>
+We're changing the BODY tag's CSS here (click brackets):
+[<span id="span1">text color</span>],
+[<span id="span2">bg color</span>],
+[<span id="span3">border</span>],
+[<span id="span4">font</span>],
+[<span id="span5">font size</span>].
+</body>
+</html>
+</textarea>
+</body>
+</html>
